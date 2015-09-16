@@ -334,7 +334,15 @@
 27
 28
 29
-30</pre>
+30
+31
+32
+33
+34
+35
+36
+37
+38</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 23</span>
@@ -346,6 +354,14 @@
  <span class='comment val'># WHAT A HACK! but you can't pass in a URI as a variable? jeezus.  </span>
  <span class='rubyid_filepath identifier id'>filepath</span> <span class='assign token'>=</span>  <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_join identifier id'>join</span><span class='lparen token'>(</span><span class='rubyid_ASUtils constant id'>ASUtils</span><span class='dot token'>.</span><span class='rubyid_find_base_directory identifier id'>find_base_directory</span><span class='comma token'>,</span> <span class='string val'>'stylesheets'</span><span class='comma token'>,</span> <span class='string val'>'as-helper-functions.xsl'</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='rubyid_gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='string val'>&quot;\\&quot;</span><span class='comma token'>,</span> <span class='string val'>&quot;/&quot;</span> <span class='rparen token'>)</span>
  <span class='rubyid_@xslt ivar id'>@xslt</span><span class='dot token'>.</span><span class='rubyid_gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='string val'>'&lt;xsl:include href=&quot;as-helper-functions.xsl&quot;/&gt;'</span><span class='comma token'>,</span> <span class='dstring node'>&quot;&lt;xsl:include href='#{filepath}'/&gt;&quot;</span> <span class='rparen token'>)</span> 
+
+ <span class='comment val'># ... ALSO UPDATE PATH TO ICON</span>
+ <span class='rubyid_stylesheets identifier id'>stylesheets</span> <span class='assign token'>=</span> <span class='rubyid_File constant id'>File</span><span class='dot token'>.</span><span class='rubyid_dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='rubyid_filepath identifier id'>filepath</span><span class='rparen token'>)</span>
+ <span class='rubyid_icon identifier id'>icon</span> <span class='assign token'>=</span> <span class='rubyid_@xslt ivar id'>@xslt</span><span class='dot token'>.</span><span class='rubyid_match identifier id'>match</span><span class='lparen token'>(</span><span class='string val'>&quot;&lt;fo:external-graphic src=\&quot;(.*)\&quot;&quot;</span><span class='rparen token'>)</span>
+ <span class='rubyid_if if kw'>if</span> <span class='rubyid_icon identifier id'>icon</span>
+   <span class='rubyid_icon identifier id'>icon</span> <span class='assign token'>=</span> <span class='rubyid_icon identifier id'>icon</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span> <span class='comment val'># the match</span>
+   <span class='rubyid_@xslt ivar id'>@xslt</span><span class='dot token'>.</span><span class='rubyid_gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='dstring node'>&quot;&lt;fo:external-graphic src=\&quot;#{icon}\&quot;&quot;</span><span class='comma token'>,</span> <span class='dstring node'>&quot;&lt;fo:external-graphic src=\&quot;#{stylesheets}/#{icon}\&quot;&quot;</span><span class='rparen token'>)</span>
+ <span class='rubyid_end end kw'>end</span>
 <span class='rubyid_end end kw'>end</span>
 </pre>
     </td>
@@ -509,13 +525,13 @@
       <pre class="lines">
 
 
-33
-34
-35
-36</pre>
+41
+42
+43
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 41</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_fo identifier id'>to_fo</span>
   <span class='rubyid_transformer identifier id'>transformer</span> <span class='assign token'>=</span> <span class='rubyid_Saxon constant id'>Saxon</span><span class='dot token'>.</span><span class='rubyid_XSLT constant id'>XSLT</span><span class='lparen token'>(</span><span class='rubyid_@xslt ivar id'>@xslt</span><span class='rparen token'>)</span>
@@ -552,21 +568,21 @@
       <pre class="lines">
 
 
-39
-40
-41
-42
-43
-44
-45
-46
 47
 48
 49
-50</pre>
+50
+51
+52
+53
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 47</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_pdf identifier id'>to_pdf</span>
   <span class='rubyid_begin begin kw'>begin</span> 
@@ -601,23 +617,23 @@
       <pre class="lines">
 
 
-52
-53
-54
-55
-56
-57
-58
-59
 60
 61
 62
 63
 64
-65</pre>
+65
+66
+67
+68
+69
+70
+71
+72
+73</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'backend/app/lib/AS_fop.rb', line 60</span>
 
 <span class='rubyid_def def kw'>def</span> <span class='rubyid_to_pdf_stream identifier id'>to_pdf_stream</span>
   <span class='rubyid_begin begin kw'>begin</span> 
@@ -644,7 +660,7 @@
 </div>
 
     <div id="footer">
-  ArchivesSpace Version v1.3.1-dev10 Documentation Generated on Tue Jul 14 11:46:05 2015 by
+  ArchivesSpace Version uifix-0.0.4 Documentation Generated on Wed Sep 16 14:54:48 2015 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-1.9.3).
 </div>
