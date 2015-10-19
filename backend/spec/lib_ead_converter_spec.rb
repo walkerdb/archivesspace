@@ -29,7 +29,7 @@ ANEAD
   }
 
 
-  
+
   it "should be able to manage empty tags" do
     converter = EADConverter.new(test_doc_1)
     converter.run
@@ -38,7 +38,7 @@ ANEAD
     parsed.length.should eq(3)
     parsed.find{|r| r['ref_id'] == '1'}['instances'][1]['container']['type_1'].should eq('Folder')
   end
-  
+
   it "should remove unitdate from unittitle" do
     converter = EADConverter.new(test_doc_1)
     converter.run
@@ -47,28 +47,28 @@ ANEAD
     parsed.length.should eq(3)
     parsed.find{|r| r['ref_id'] == '1'}['title'].should eq('oh well')
     parsed.find{|r| r['ref_id'] == '1'}['dates'][0]['expression'].should eq("1907-1911")
-  
+
   end
 
   it "should be link to existing agents with authority_id" do
-  
+
     json =    build( :json_agent_person,
                      :names => [build(:json_name_person,
                      'authority_id' => 'thesame',
                      'source' => 'local'
                      )])
-   
+
     agent =    AgentPerson.create_from_json(json)
-    
+
     converter = EADConverter.new(test_doc_1)
     converter.run
     parsed = JSON(IO.read(converter.get_output_path))
-   
+
     # these lines are ripped out of StreamingImport
     new_agent_json = parsed.find { |r| r['jsonmodel_type'] == 'agent_person' }
     record = JSONModel(:agent_person).from_hash(new_agent_json, true, false)
-    new_agent = AgentPerson.ensure_exists(record, nil) 
-    
+    new_agent = AgentPerson.ensure_exists(record, nil)
+
 
     agent.should eq(new_agent)
   end
@@ -134,13 +134,22 @@ ANEAD
       # 	ELSE
     end
 
-    it "maps '<extent>' correctly" do
+    it "maps '<physdesc>' correctly" do
+      # <extent> tag mapping
       #  	IF value starts with a number followed by a space and can be parsed
       @resource['extents'][0]['number'].should eq("5.0")
       @resource['extents'][0]['extent_type'].should eq("Linear feet")
 
       # 	ELSE
       @resource['extents'][0]['container_summary'].should eq("Resource-ContainerSummary-AT")
+
+
+      # further physdesc tags - dimensions and physfacet tags are mapped appropriately
+      @resource['extents'][0]['dimensions'].should eq("Resource-Dimensions-AT")
+      @resource['extents'][0]['physical_details'].should eq("Resource-Physfacet-AT")
+
+      # physdesc altrender mapping
+      @resource['extents'][0]['portion'].should eq("part")
     end
 
 
@@ -412,7 +421,7 @@ ANEAD
       # 	IF nested in <archdesc> OR <c>
 
       # 	ELSE, IF nested in <notestmnt>
-      @resource['finding_aid_note'].should eq("Resource-FindingAidNote-AT\n\nResource-FindingAidNote-AT2\n\nResource-FindingAidNote-AT3\n\nResource-FindingAidNote-AT4") 
+      @resource['finding_aid_note'].should eq("Resource-FindingAidNote-AT\n\nResource-FindingAidNote-AT2\n\nResource-FindingAidNote-AT3\n\nResource-FindingAidNote-AT4")
     end
 
     it "maps '<odd>' correctly" do
@@ -649,9 +658,9 @@ ANEAD
 <ead>
   <archdesc level="collection" audience="internal">
   <did>
-       <descgrp>                                                      
-          <processinfo/>                                                 
-      </descgrp>  
+       <descgrp>
+          <processinfo/>
+      </descgrp>
       <unittitle>Resource--Title-AT</unittitle>
       <unitdate normal="1907/1911" era="ce" calendar="gregorian" type="inclusive">1907-1911</unitdate>
       <unitid>Resource.ID.AT</unitid>
@@ -682,7 +691,7 @@ ANEAD
       parsed = convert(test_doc)
       @resource = parsed.find{|r| r['jsonmodel_type'] == 'resource'}
       @components = parsed.select{|r| r['jsonmodel_type'] == 'archival_object'}
-    end      
+    end
 
     it "uses archdesc/@audience to set resource publish property" do
       @resource['publish'].should be false
@@ -933,22 +942,22 @@ ANEAD
   end
 
  describe "DAO and DAOGROUPS" do
-   
-   before(:all) do 
+
+   before(:all) do
       test_file = File.expand_path("../app/exporters/examples/ead/ead-dao-test.xml", File.dirname(__FILE__))
       parsed = convert(test_file)
 
       @digital_objects = parsed.select {|rec| rec['jsonmodel_type'] == 'digital_object'}
-      @notes = @digital_objects.inject([]) { |c, rec| c + rec["notes"] } 
+      @notes = @digital_objects.inject([]) { |c, rec| c + rec["notes"] }
       @resources = parsed.select {|rec| rec['jsonmodel_type'] == 'resource'}
-      @resource = @resources.last  
+      @resource = @resources.last
       @archival_objects = parsed.select {|rec| rec['jsonmodel_type'] == 'archival_object'}
-      @file_versions = @digital_objects.inject([]) { |c, rec| c + rec["file_versions"] } 
+      @file_versions = @digital_objects.inject([]) { |c, rec| c + rec["file_versions"] }
    end
-  
+
    it "should make all the digital, archival objects and resources" do
-      @digital_objects.length.should == 5 
-      @archival_objects.length.should == 8 
+      @digital_objects.length.should == 5
+      @archival_objects.length.should == 8
       @resources.length.should == 1
       @file_versions.length.should == 11
    end
@@ -956,15 +965,15 @@ ANEAD
 
    it "should turn all the daodsc into notes" do
     @notes.length.should == 3
-    notes_content = @notes.inject([]) { |c, note| c +  note["content"]  } 
+    notes_content = @notes.inject([]) { |c, note| c +  note["content"]  }
     notes_content.should include('<p>first daogrp</p>')
     notes_content.should include('<p>second daogrp</p>')
     notes_content.should include('<p>dao no grp</p>')
    end
- 
+
  end
 
- 
+
   describe "EAD With frontpage" do
 
     before(:all) do
@@ -976,19 +985,19 @@ ANEAD
     end
 
     it "shouldn't overwrite the finding_aid_title/titleproper from frontpage" do
-      @resource["finding_aid_title"].should eq("Proper Title") 
-      @resource["finding_aid_title"].should_not eq("TITLEPAGE titleproper") 
+      @resource["finding_aid_title"].should eq("Proper Title")
+      @resource["finding_aid_title"].should_not eq("TITLEPAGE titleproper")
     end
 
     it "should not have any of the titlepage content" do
       @parsed.to_s.should_not include("TITLEPAGE")
     end
-   
+
     it "should have instances grouped by their container @id/@parent relationships" do
-      instances = @archival_objects.first["instances"] 
+      instances = @archival_objects.first["instances"]
       instances.length.should eq(3)
       instances.each_with_index do |v,index|
-        
+
         container = v["container"]
         (1..( index + 1)) .to_a.each { |i|  container["indicator_#{i.to_s}"].should eq(( i + index ).to_s)  }
       end

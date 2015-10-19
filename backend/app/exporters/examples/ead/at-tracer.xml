@@ -67,9 +67,11 @@
             </langmaterial>
             <container id="cid1" type="Box" label="Text">1</container>
             <container parent="cid1" type="Folder">1</container>
-            <physdesc>
+            <physdesc altrender="Part">
                 <extent>5.0 Linear feet</extent>
                 <extent>Resource-ContainerSummary-AT</extent>
+                <physfacet>Resource-PhysicalFacet-AT</physfacet>
+                <dimensions>Resource-Dimensions-AT</dimensions>
             </physdesc>
             <unitdate normal="1960/1970" type="bulk">Bulk, 1960-1970</unitdate>
             <unitdate normal="1960/1970" type="inclusive">Resource-Title-AT</unitdate>
@@ -248,60 +250,60 @@
                 <blockquote>
                     <p>Blockquote 2: Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
                 </blockquote></p>
-            <p>Here is an example of a wrap-in-tag using corpname, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using corpname, with RULES="DACS":
                 <corpname rules="DACS">corpname</corpname></p>
-            <p>Here is an example of a wrap-in-tag using famname, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using famname, with RULES="DACS":
                 <famname rules="DACS">famname</famname></p>
-            <p>Here is an example of a wrap-in-tag using function, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using function, with RULES="DACS":
                 <function rules="DACS">function</function></p>
-            <p>Here is an example of a wrap-in-tag using genreform, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using genreform, with RULES="DACS":
                 <genreform source="DACS">genreform</genreform></p>
-            <p>Here is an example of a wrap-in-tag using geogname, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using geogname, with RULES="DACS":
                 <geogname rules="DACS">geogname</geogname></p>
-            <p>Here is an example of a wrap-in-tag using name, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using name, with RULES="DACS":
                 <name rules="DACS">name</name></p>
-            <p>Here is an example of a wrap-in-tag using occupation, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using occupation, with RULES="DACS":
                 <occupation rules="DACS">occupation</occupation></p>
-            <p>Here is an example of a wrap-in-tag using persname, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using persname, with RULES="DACS":
                 <persname rules="DACS">persname</persname></p>
-            <p>Here is an example of a wrap-in-tag using subject, with RULES="DACS": 
+            <p>Here is an example of a wrap-in-tag using subject, with RULES="DACS":
                 <subject rules="DACS">subject</subject></p>
-            <p>Here is an example of a wrap-in-tag using title, with RENDER="BOLD": 
+            <p>Here is an example of a wrap-in-tag using title, with RENDER="BOLD":
                 <title render="bold">title</title></p>
-            <p>Here is an example of a wrap-in tag using date, with CALENDAR="gregorian", ERA="CE", and NORMAL="1999": 
+            <p>Here is an example of a wrap-in tag using date, with CALENDAR="gregorian", ERA="CE", and NORMAL="1999":
                 <date calendar="gregorian" normal="1999" era="ce">date</date></p>
-            <p>Here is an example of a wrap-in tag using emph, with altrender: 
+            <p>Here is an example of a wrap-in tag using emph, with altrender:
                 <emph render="altrender">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with bold: 
+            <p>Here is an example of a wrap-in tag using emph, with bold:
                 <emph render="bold">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with bolddoublequote: 
+            <p>Here is an example of a wrap-in tag using emph, with bolddoublequote:
                 <emph render="bolddoublequote">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with bolditalic: 
-                <emph render="bolditalic">emph </emph> Here is an example of a wrap-in tag using emph, with boldsinglequote: 
+            <p>Here is an example of a wrap-in tag using emph, with bolditalic:
+                <emph render="bolditalic">emph </emph> Here is an example of a wrap-in tag using emph, with boldsinglequote:
                 <emph render="boldsinglequote">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with boldsmcaps: 
+            <p>Here is an example of a wrap-in tag using emph, with boldsmcaps:
                 <emph render="boldsmcaps">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with boldunderline: 
+            <p>Here is an example of a wrap-in tag using emph, with boldunderline:
                 <emph render="boldunderline">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with doublequote: 
+            <p>Here is an example of a wrap-in tag using emph, with doublequote:
                 <emph render="doublequote">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with italic: 
+            <p>Here is an example of a wrap-in tag using emph, with italic:
                 <emph render="italic">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with nonproport: 
+            <p>Here is an example of a wrap-in tag using emph, with nonproport:
                 <emph render="nonproport">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with singlequote: 
+            <p>Here is an example of a wrap-in tag using emph, with singlequote:
                 <emph render="singlequote">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with smcaps: 
+            <p>Here is an example of a wrap-in tag using emph, with smcaps:
                 <emph render="smcaps">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with subscript: 
+            <p>Here is an example of a wrap-in tag using emph, with subscript:
                 <emph render="sub">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with superscript: 
+            <p>Here is an example of a wrap-in tag using emph, with superscript:
                 <emph render="super">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using emph, with underline: 
+            <p>Here is an example of a wrap-in tag using emph, with underline:
                 <emph render="underline">emph</emph></p>
-            <p>Here is an example of a wrap-in tag using extef, with SHOW and TITLE attributes: 
+            <p>Here is an example of a wrap-in tag using extef, with SHOW and TITLE attributes:
                 <extref ns2:show="new" ns2:title="ArchivesSpace" ns2:href="http://www.archivesspace.org">http://www.archivesspace.org</extref></p>
-            <p>Here is an example of a wrap-in tag using ref, targeting the Abstract note in the Resource record, with SHOW and TITLE attributes: 
+            <p>Here is an example of a wrap-in tag using ref, targeting the Abstract note in the Resource record, with SHOW and TITLE attributes:
                 <ref ns2:show="new" ns2:title="ArchivesSpace" target="ref1">http://www.archivesspace.org</ref></p>
         </scopecontent>
         <separatedmaterial id="ref30">
